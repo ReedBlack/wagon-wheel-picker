@@ -1,7 +1,7 @@
 {
   "name": "@reedblack/wagon-wheel-picker",
   "version": "0.1.0",
-  "description": "A beautiful, interactive radial selection component for React - like a wagon wheel of options",
+  "description": "A playful, interactive radial selection component for React - perfect for kids' apps, games, and fun interfaces",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

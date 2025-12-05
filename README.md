@@ -1,6 +1,6 @@
 # Wagon Wheel Picker
 
-A playful, interactive radial selection component for React. Display options in a circular wagon wheel layout with smooth animations and delightful hover effects.
+A playful, interactive radial selection component for React. Perfect for kids' apps, game UIs, and fun, lighthearted interfaces. Display options in a circular wagon wheel layout with bouncy animations and delightful hover effects.
 
 ![npm version](https://img.shields.io/npm/v/@reedblack/wagon-wheel-picker)
 ![npm downloads](https://img.shields.io/npm/dm/@reedblack/wagon-wheel-picker)
@@ -8,13 +8,22 @@ A playful, interactive radial selection component for React. Display options in 
 
 ## ✨ Features
 
-- **Beautiful radial layout** - Options arranged in a visually striking circular pattern
-- **Smooth animations** - Optional Framer Motion integration for sophisticated transitions
+- **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
+- **Bouncy animations** - Optional Framer Motion integration for springy, playful transitions
 - **Fully customizable** - Themeable colors, sizing, and behavior
 - **Framework flexible** - Works with Next.js Image or standard img tags
 - **Responsive** - Auto-detects mobile or accepts manual size control
 - **TypeScript support** - Full type definitions included
 - **Lightweight** - Minimal dependencies, Framer Motion is optional
+
+## 🎮 Perfect For
+
+- Kids' apps and educational games
+- Food and recipe apps (like [Taco Ninja](https://taconinja.app))
+- Playful e-commerce product pickers
+- Character or avatar selectors
+- Game lobbies and casual game UIs
+- Any interface that benefits from a fun, whimsical touch
 
 ## 📦 Installation
 
@@ -258,4 +267,4 @@ Found a bug? [Open an issue](https://github.com/reedblack/wagon-wheel-picker/iss
 
 ## 💡 Inspiration
 
-Created for [Taco Ninja](https://taconinja.app) - a recipe randomizer app. The wagon wheel pattern proved so useful and beautiful, it deserved to be its own package!
+Created for [Taco Ninja](https://taconinja.app) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!

@@ -4,8 +4,9 @@ import { WagonWheelPicker } from '../components/WagonWheelPicker';
 import type { WagonWheelPickerProps } from '../components/WagonWheelPicker';
 
 /**
- * WagonWheelPicker is a circular option selector component that displays choices
- * in a wheel format. Perfect for selecting from 3-8 options with visual appeal.
+ * WagonWheelPicker is a playful circular option selector component that displays choices
+ * in a fun wagon wheel format. Perfect for kids' apps, games, and lighthearted interfaces.
+ * Works best with 3-8 options.
  */
 const meta = {
   title: 'Components/WagonWheelPicker',
