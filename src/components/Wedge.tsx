@@ -1,14 +1,5 @@
 import React from 'react';
-
-// Try to import framer-motion, but gracefully handle if it's not available
-let motion: any;
-try {
-  const framerMotion = require('framer-motion');
-  motion = framerMotion.motion;
-} catch (e) {
-  // Framer Motion not available, use regular elements
-  motion = null;
-}
+import { motion } from 'framer-motion';
 
 export interface WedgeData {
   baseKey: string;
@@ -55,44 +46,6 @@ const Wedge: React.FC<WedgeProps> = ({
     altLabel,
   } = wedge;
 
-  // Use framer-motion if available, otherwise use regular SVG elements
-  const GElement = motion ? motion.g : 'g';
-  const PathElement = motion ? motion.path : 'path';
-
-  const gProps = motion
-    ? {
-        initial: { scale: 1 },
-        whileHover: { scale: 1.03 },
-        transition: { type: 'spring', stiffness: 200, damping: 15 },
-        style: { cursor: 'pointer', transformOrigin: 'center' },
-        onMouseEnter,
-        onMouseLeave,
-      }
-    : {
-        style: {
-          cursor: 'pointer',
-          transition: 'transform 0.2s ease',
-          transformOrigin: 'center'
-        },
-        onMouseEnter: (e: React.MouseEvent) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)';
-          onMouseEnter?.();
-        },
-        onMouseLeave: (e: React.MouseEvent) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-          onMouseLeave?.();
-        },
-      };
-
-  const pathProps = {
-    d,
-    fill: fillColor,
-    stroke: strokeColor,
-    strokeWidth,
-    style: { pointerEvents: 'auto' as const },
-    onClick: () => onClick?.(baseKey),
-  };
-
   // Use custom Image component if provided, otherwise use standard img
   const ImageEl = ImageComponent || 'img';
   const imageProps = ImageComponent
@@ -120,8 +73,23 @@ const Wedge: React.FC<WedgeProps> = ({
       };
 
   return (
-    <GElement key={baseKey} {...gProps}>
-      <PathElement {...pathProps} />
+    <motion.g
+      key={baseKey}
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: 'spring', stiffness: size }}
+      style={{ cursor: 'pointer' }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <motion.path
+        d={d}
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth={strokeWidth}
+        style={{ pointerEvents: 'auto' }}
+        onClick={() => onClick?.(baseKey)}
+      />
       <foreignObject
         x={xPos}
         y={yPos}
@@ -141,7 +109,7 @@ const Wedge: React.FC<WedgeProps> = ({
           <ImageEl {...imageProps} />
         </div>
       </foreignObject>
-    </GElement>
+    </motion.g>
   );
 };
 

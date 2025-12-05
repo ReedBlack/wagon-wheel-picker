@@ -9,12 +9,12 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ## ✨ Features
 
 - **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
-- **Bouncy animations** - Optional Framer Motion integration for springy, playful transitions
+- **Bouncy animations** - Springy, playful transitions powered by Framer Motion
 - **Fully customizable** - Themeable colors, sizing, and behavior
 - **Framework flexible** - Works with Next.js Image or standard img tags
 - **Responsive** - Auto-detects mobile or accepts manual size control
 - **TypeScript support** - Full type definitions included
-- **Lightweight** - Minimal dependencies, Framer Motion is optional
+- **Lightweight** - Minimal dependencies
 
 ## 🎮 Perfect For
 
@@ -28,18 +28,10 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ## 📦 Installation
 
 ```bash
-npm install @reedblack/wagon-wheel-picker
+npm install @reedblack/wagon-wheel-picker framer-motion
 ```
 
-### Optional: Enhanced Animations
-
-For smooth animations with Framer Motion (recommended):
-
-```bash
-npm install framer-motion
-```
-
-If you don't install Framer Motion, the component will gracefully fall back to CSS transitions.
+> **Note**: Framer Motion is required for the bouncy, playful animations that make this component fun!
 
 ## 🚀 Quick Start
 
