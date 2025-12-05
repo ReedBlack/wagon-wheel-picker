@@ -1,6 +1,6 @@
-# 🎡 Wagon Wheel Picker
+# Wagon Wheel Picker
 
-A beautiful, interactive radial selection component for React. Display options in a circular wagon wheel layout with smooth animations and delightful hover effects.
+A playful, interactive radial selection component for React. Display options in a circular wagon wheel layout with smooth animations and delightful hover effects.
 
 ![npm version](https://img.shields.io/npm/v/@reedblack/wagon-wheel-picker)
 ![npm downloads](https://img.shields.io/npm/dm/@reedblack/wagon-wheel-picker)
