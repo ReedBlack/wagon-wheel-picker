@@ -63,7 +63,10 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   fallbackImage = '/fallback.png',
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [keyboardFocused, setKeyboardFocused] = useState(false);
   const [detectedMobile, setDetectedMobile] = useState(false);
+  const mouseDownRef = React.useRef(false);
 
   // Auto-detect mobile if not provided
   useEffect(() => {
@@ -83,6 +86,50 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   // Normalize options to array format
   let optionKeys: string[];
   let optionMap: Record<string, WagonWheelOption> = {};
+
+  // Keyboard navigation handler
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (!optionKeys || optionKeys.length === 0) return;
+
+    const currentIndex = focusedIndex !== null ? focusedIndex :
+                        (value ? optionKeys.indexOf(value) : -1);
+
+    let newIndex = currentIndex;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        event.preventDefault();
+        newIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % optionKeys.length;
+        setFocusedIndex(newIndex);
+        break;
+
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        event.preventDefault();
+        newIndex = currentIndex === -1 ? optionKeys.length - 1 :
+                   (currentIndex - 1 + optionKeys.length) % optionKeys.length;
+        setFocusedIndex(newIndex);
+        break;
+
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        if (focusedIndex !== null && onClick) {
+          onClick(optionKeys[focusedIndex]);
+        }
+        break;
+
+      case 'Escape':
+        event.preventDefault();
+        setFocusedIndex(null);
+        (event.target as HTMLElement).blur();
+        break;
+
+      default:
+        break;
+    }
+  };
 
   if (Array.isArray(options)) {
     // Validation: minimum 3, maximum 8 options
@@ -203,17 +250,21 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
     };
   });
 
-  const normalWedges = wedgeData.map((wedge) => (
-    <Wedge
-      key={wedge.baseKey}
-      wedge={wedge}
-      size={size}
-      onClick={onClick}
-      onMouseEnter={() => setHoverIndex(wedge.index)}
-      onMouseLeave={() => setHoverIndex(null)}
-      ImageComponent={ImageComponent}
-    />
-  ));
+  const normalWedges = wedgeData.map((wedge) => {
+    const isFocused = focusedIndex === wedge.index;
+    return (
+      <Wedge
+        key={wedge.baseKey}
+        wedge={wedge}
+        size={size}
+        onClick={onClick}
+        onMouseEnter={() => setHoverIndex(wedge.index)}
+        onMouseLeave={() => setHoverIndex(null)}
+        ImageComponent={ImageComponent}
+        isFocused={isFocused}
+      />
+    );
+  });
 
   // Render ghost wedge for selected slice
   let selectedGhost: JSX.Element | null = null;
@@ -281,8 +332,43 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
             width={size}
             height={size}
             viewBox={`0 0 ${size} ${size}`}
-            style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, overflow: 'visible' }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              zIndex: 2,
+              overflow: 'visible',
+              outline: 'none',
+              borderRadius: '50%',
+              boxShadow: keyboardFocused ? '0 0 0 3px #007bff' : 'none',
+            }}
             xmlns='http://www.w3.org/2000/svg'
+            tabIndex={0}
+            onKeyDown={(e) => {
+              setKeyboardFocused(true);
+              handleKeyDown(e);
+            }}
+            onMouseDown={() => {
+              mouseDownRef.current = true;
+              setKeyboardFocused(false);
+            }}
+            onFocus={() => {
+              // If focus happened without mouseDown, it's keyboard focus (Tab)
+              if (!mouseDownRef.current) {
+                setKeyboardFocused(true);
+                // Focus the selected option, or the first option if nothing is selected
+                const selectedIdx = value ? optionKeys.indexOf(value) : -1;
+                setFocusedIndex(selectedIdx >= 0 ? selectedIdx : 0);
+              }
+              mouseDownRef.current = false;
+            }}
+            onBlur={() => {
+              setKeyboardFocused(false);
+              setFocusedIndex(null);
+            }}
+            role="radiogroup"
+            aria-label="Option picker"
+            aria-activedescendant={focusedIndex !== null ? `option-${optionKeys[focusedIndex]}` : undefined}
           >
             {/* Wheel Center */}
             <WheelCenter

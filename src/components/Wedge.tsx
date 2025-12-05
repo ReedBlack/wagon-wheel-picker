@@ -23,6 +23,7 @@ export interface WedgeProps {
   onMouseLeave?: () => void;
   size: number;
   ImageComponent?: React.ComponentType<any>;
+  isFocused?: boolean;
 }
 
 const Wedge: React.FC<WedgeProps> = ({
@@ -31,10 +32,12 @@ const Wedge: React.FC<WedgeProps> = ({
   onMouseEnter,
   onMouseLeave,
   size,
-  ImageComponent
+  ImageComponent,
+  isFocused = false,
 }) => {
   const {
     baseKey,
+    isSelected,
     d,
     fillColor,
     strokeColor,
@@ -81,7 +84,26 @@ const Wedge: React.FC<WedgeProps> = ({
       style={{ cursor: 'pointer' }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      id={`option-${baseKey}`}
+      role="radio"
+      aria-checked={isSelected}
+      aria-label={altLabel}
     >
+      {/* Focus indicator ring */}
+      {isFocused && (
+        <path
+          d={d}
+          fill="none"
+          stroke="#007bff"
+          strokeWidth={4}
+          style={{
+            pointerEvents: 'none',
+            transformOrigin: 'center',
+            transformBox: 'fill-box',
+            transform: 'scale(1.01)'
+          }}
+        />
+      )}
       <motion.path
         d={d}
         fill={fillColor}
