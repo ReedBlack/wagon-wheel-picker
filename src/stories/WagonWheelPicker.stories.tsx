@@ -43,23 +43,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Sample data
+// Sample data - using real Taco Ninja images
 const basicOptions = [
-  { key: 'beef', label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
-  { key: 'chicken', label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
-  { key: 'pork', label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
-  { key: 'fish', label: 'Fish', image: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish' },
+  { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
+  { key: 'chicken', label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
+  { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
+  { key: 'sea', label: 'Seafood', image: '/images/categoryImages/SEA.png' },
 ];
 
 const manyOptions = [
-  { key: 'beef', label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
-  { key: 'chicken', label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
-  { key: 'pork', label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
-  { key: 'fish', label: 'Fish', image: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish' },
-  { key: 'tofu', label: 'Tofu', image: 'https://via.placeholder.com/150/96CEB4/FFFFFF?text=Tofu' },
-  { key: 'tempeh', label: 'Tempeh', image: 'https://via.placeholder.com/150/FFEAA7/333333?text=Tempeh' },
-  { key: 'beans', label: 'Beans', image: 'https://via.placeholder.com/150/DFE6E9/333333?text=Beans' },
-  { key: 'eggs', label: 'Eggs', image: 'https://via.placeholder.com/150/74B9FF/FFFFFF?text=Eggs' },
+  { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
+  { key: 'chicken', label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
+  { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
+  { key: 'sea', label: 'Seafood', image: '/images/categoryImages/SEA.png' },
+  { key: 'veg', label: 'Vegetarian', image: '/images/categoryImages/VEG.png' },
+  { key: 'wild', label: 'Wild Game', image: '/images/categoryImages/WILD.png' },
+  { key: 'brunch', label: 'Brunch', image: '/images/categoryImages/BRUNCH.png' },
 ];
 
 const textOnlyOptions = [
@@ -230,10 +229,10 @@ export const ObjectFormat: Story = {
     return (
       <WagonWheelPicker
         options={{
-          beef: { label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
-          chicken: { label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
-          pork: { label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
-          fish: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish', // Shorthand for image-only
+          beef: { label: 'Beef', image: '/images/categoryImages/BEEF.png' },
+          chicken: { label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
+          pork: { label: 'Pork', image: '/images/categoryImages/PORK.png' },
+          sea: '/images/categoryImages/SEA.png', // Shorthand for image-only
         }}
         value={selected}
         onClick={setSelected}
@@ -258,10 +257,10 @@ export const MixedContent: Story = {
   render: () => (
     <InteractiveWagonWheel
       options={[
-        { key: 'withImage1', label: 'With Image 1', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1' },
-        { key: 'textOnly1', label: 'Text Only 1' },
-        { key: 'withImage2', label: 'With Image 2', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2' },
-        { key: 'textOnly2', label: 'Text Only 2' },
+        { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
+        { key: 'textOnly1', label: 'Text Only' },
+        { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
+        { key: 'textOnly2', label: 'Also Text' },
       ]}
     />
   ),
