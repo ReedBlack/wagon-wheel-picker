@@ -100,6 +100,28 @@ const options = {
 <WagonWheelPicker options={options} value="option1" onClick={handleClick} />
 ```
 
+## 🎭 Interactive Examples
+
+Explore live examples and experiment with all customization options in Storybook:
+
+```bash
+npm run storybook
+```
+
+This opens an interactive playground at `http://localhost:6006` with:
+- **15+ example stories** showcasing different use cases
+- **Live controls** to experiment with props and themes
+- **Multiple themes** (dark, colorful, pastel)
+- **Different sizes** and option counts
+- **Mobile vs Desktop** comparison
+- **Documentation** for all props and features
+
+To build a static Storybook:
+
+```bash
+npm run build-storybook
+```
+
 ## 🎨 Customization
 
 ### Custom Theme

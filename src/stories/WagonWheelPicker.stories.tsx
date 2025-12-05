@@ -1,0 +1,290 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { WagonWheelPicker } from '../components/WagonWheelPicker';
+import type { WagonWheelPickerProps } from '../components/WagonWheelPicker';
+
+/**
+ * WagonWheelPicker is a circular option selector component that displays choices
+ * in a wheel format. Perfect for selecting from 3-8 options with visual appeal.
+ */
+const meta = {
+  title: 'Components/WagonWheelPicker',
+  component: WagonWheelPicker,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    options: {
+      description: 'Array of options or object with option keys',
+    },
+    value: {
+      description: 'Currently selected option key',
+    },
+    onClick: {
+      description: 'Callback when an option is clicked',
+      action: 'clicked',
+    },
+    size: {
+      control: { type: 'range', min: 200, max: 600, step: 20 },
+      description: 'Diameter of the wheel in pixels',
+    },
+    theme: {
+      description: 'Theme object for customizing colors',
+    },
+    isMobile: {
+      control: 'boolean',
+      description: 'Force mobile or desktop mode',
+    },
+  },
+} satisfies Meta<typeof WagonWheelPicker>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Sample data
+const basicOptions = [
+  { key: 'beef', label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
+  { key: 'chicken', label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
+  { key: 'pork', label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
+  { key: 'fish', label: 'Fish', image: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish' },
+];
+
+const manyOptions = [
+  { key: 'beef', label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
+  { key: 'chicken', label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
+  { key: 'pork', label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
+  { key: 'fish', label: 'Fish', image: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish' },
+  { key: 'tofu', label: 'Tofu', image: 'https://via.placeholder.com/150/96CEB4/FFFFFF?text=Tofu' },
+  { key: 'tempeh', label: 'Tempeh', image: 'https://via.placeholder.com/150/FFEAA7/333333?text=Tempeh' },
+  { key: 'beans', label: 'Beans', image: 'https://via.placeholder.com/150/DFE6E9/333333?text=Beans' },
+  { key: 'eggs', label: 'Eggs', image: 'https://via.placeholder.com/150/74B9FF/FFFFFF?text=Eggs' },
+];
+
+const textOnlyOptions = [
+  { key: 'small', label: 'Small' },
+  { key: 'medium', label: 'Medium' },
+  { key: 'large', label: 'Large' },
+  { key: 'xlarge', label: 'X-Large' },
+];
+
+// Interactive wrapper component
+function InteractiveWagonWheel(props: Partial<WagonWheelPickerProps>) {
+  const [selected, setSelected] = useState<string | undefined>(props.value);
+
+  return (
+    <WagonWheelPicker
+      {...props}
+      options={props.options || basicOptions}
+      value={selected}
+      onClick={setSelected}
+    />
+  );
+}
+
+/**
+ * Basic usage with 4 options and images.
+ * Click on a wedge to select it.
+ */
+export const Default: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} />,
+};
+
+/**
+ * Minimal example with just 3 options (minimum required).
+ */
+export const MinimalThreeOptions: Story = {
+  render: () => (
+    <InteractiveWagonWheel
+      options={[
+        { key: 'option1', label: 'Option 1', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1' },
+        { key: 'option2', label: 'Option 2', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2' },
+        { key: 'option3', label: 'Option 3', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=3' },
+      ]}
+    />
+  ),
+};
+
+/**
+ * Maximum recommended options (8).
+ * More than 8 options will trigger a console warning.
+ */
+export const MaximumEightOptions: Story = {
+  render: () => <InteractiveWagonWheel options={manyOptions} />,
+};
+
+/**
+ * Text-only options without images.
+ * The component gracefully handles missing images.
+ */
+export const TextOnly: Story = {
+  render: () => <InteractiveWagonWheel options={textOnlyOptions} />,
+};
+
+/**
+ * Custom size - make it larger (500px diameter).
+ */
+export const LargeSize: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} size={500} />,
+};
+
+/**
+ * Custom size - make it smaller (280px diameter).
+ */
+export const SmallSize: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} size={280} />,
+};
+
+/**
+ * Dark theme example.
+ * All theme properties are optional and can be customized.
+ */
+export const DarkTheme: Story = {
+  render: () => (
+    <div style={{ background: '#1a1a1a', padding: '2rem', borderRadius: '8px' }}>
+      <InteractiveWagonWheel
+        options={basicOptions}
+        theme={{
+          tertiaryBackground: '#2a2a2a',
+          surfaceBackground: '#1a1a1a',
+          tertiary: '#4ECDC4',
+          border: '#3a3a3a',
+          background: '#0a0a0a',
+          text: '#ffffff',
+          divider: '#3a3a3a',
+        }}
+      />
+    </div>
+  ),
+};
+
+/**
+ * Colorful theme with vibrant colors.
+ */
+export const ColorfulTheme: Story = {
+  render: () => (
+    <div style={{ background: '#f0f0f0', padding: '2rem', borderRadius: '8px' }}>
+      <InteractiveWagonWheel
+        options={basicOptions}
+        theme={{
+          tertiaryBackground: '#FFE66D',
+          surfaceBackground: '#FFFFFF',
+          tertiary: '#FF6B6B',
+          border: '#4ECDC4',
+          background: '#F4F4F4',
+          text: '#2C3E50',
+          divider: '#95E1D3',
+        }}
+      />
+    </div>
+  ),
+};
+
+/**
+ * Pastel theme with soft colors.
+ */
+export const PastelTheme: Story = {
+  render: () => (
+    <div style={{ background: '#fafafa', padding: '2rem', borderRadius: '8px' }}>
+      <InteractiveWagonWheel
+        options={basicOptions}
+        theme={{
+          tertiaryBackground: '#E8F4F8',
+          surfaceBackground: '#FFFFFF',
+          tertiary: '#B8E6F0',
+          border: '#D4E4ED',
+          background: '#F5F5F5',
+          text: '#5A6C7D',
+          divider: '#C8D6E5',
+        }}
+      />
+    </div>
+  ),
+};
+
+/**
+ * Mobile mode view.
+ * On mobile, hover effects are disabled for better touch experience.
+ */
+export const MobileMode: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} isMobile={true} />,
+};
+
+/**
+ * Desktop mode view.
+ * Desktop mode includes hover effects and animations.
+ */
+export const DesktopMode: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} isMobile={false} />,
+};
+
+/**
+ * Object format for options.
+ * You can pass options as an object with keys instead of an array.
+ */
+export const ObjectFormat: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<string | undefined>();
+
+    return (
+      <WagonWheelPicker
+        options={{
+          beef: { label: 'Beef', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Beef' },
+          chicken: { label: 'Chicken', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Chicken' },
+          pork: { label: 'Pork', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=Pork' },
+          fish: 'https://via.placeholder.com/150/FFA07A/FFFFFF?text=Fish', // Shorthand for image-only
+        }}
+        value={selected}
+        onClick={setSelected}
+      />
+    );
+  },
+};
+
+/**
+ * Pre-selected option.
+ * Start with an option already selected.
+ */
+export const PreSelected: Story = {
+  render: () => <InteractiveWagonWheel options={basicOptions} value="chicken" />,
+};
+
+/**
+ * Mixed content - some with images, some without.
+ * The component handles mixed content gracefully.
+ */
+export const MixedContent: Story = {
+  render: () => (
+    <InteractiveWagonWheel
+      options={[
+        { key: 'withImage1', label: 'With Image 1', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1' },
+        { key: 'textOnly1', label: 'Text Only 1' },
+        { key: 'withImage2', label: 'With Image 2', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2' },
+        { key: 'textOnly2', label: 'Text Only 2' },
+      ]}
+    />
+  ),
+};
+
+/**
+ * Playground for experimenting with all options.
+ * Use the controls panel to customize the component.
+ */
+export const Playground: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState<string | undefined>(args.value);
+
+    return (
+      <WagonWheelPicker
+        {...args}
+        value={selected}
+        onClick={setSelected}
+      />
+    );
+  },
+  args: {
+    options: basicOptions,
+    size: 420,
+    isMobile: false,
+  },
+};
