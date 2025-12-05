@@ -24,15 +24,16 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent }) 
 
   const gProps = motion
     ? {
-        initial: { scale: 1.05 },
-        animate: { scale: 1.05 },
-        transition: { type: 'spring', stiffness: size },
-        style: { pointerEvents: 'none' },
+        initial: { scale: 1.03 },
+        animate: { scale: 1.03 },
+        transition: { type: 'spring', stiffness: 200, damping: 15 },
+        style: { pointerEvents: 'none', transformOrigin: 'center' },
       }
     : {
         style: {
           pointerEvents: 'none',
-          transform: 'scale(1.05)',
+          transform: 'scale(1.03)',
+          transformOrigin: 'center',
         },
       };
 
@@ -43,7 +44,7 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent }) 
     strokeWidth: wedge.strokeWidth,
     style: {
       pointerEvents: 'none' as const,
-      filter: 'drop-shadow(0px 3px 12px rgba(0, 0, 0, 0.25))'
+      filter: 'drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15))'
     },
   };
 

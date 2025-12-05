@@ -62,16 +62,20 @@ const Wedge: React.FC<WedgeProps> = ({
   const gProps = motion
     ? {
         initial: { scale: 1 },
-        whileHover: { scale: 1.05 },
-        transition: { type: 'spring', stiffness: size },
-        style: { cursor: 'pointer' },
+        whileHover: { scale: 1.03 },
+        transition: { type: 'spring', stiffness: 200, damping: 15 },
+        style: { cursor: 'pointer', transformOrigin: 'center' },
         onMouseEnter,
         onMouseLeave,
       }
     : {
-        style: { cursor: 'pointer', transition: 'transform 0.2s ease' },
+        style: {
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease',
+          transformOrigin: 'center'
+        },
         onMouseEnter: (e: React.MouseEvent) => {
-          (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+          (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)';
           onMouseEnter?.();
         },
         onMouseLeave: (e: React.MouseEvent) => {
