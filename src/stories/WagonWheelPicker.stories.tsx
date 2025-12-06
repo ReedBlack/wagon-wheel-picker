@@ -33,10 +33,6 @@ const meta = {
     theme: {
       description: 'Theme object for customizing colors',
     },
-    isMobile: {
-      control: 'boolean',
-      description: 'Force mobile or desktop mode',
-    },
   },
 } satisfies Meta<typeof WagonWheelPicker>;
 
@@ -136,29 +132,6 @@ export const SmallSize: Story = {
 };
 
 /**
- * Dark theme example.
- * All theme properties are optional and can be customized.
- */
-export const DarkTheme: Story = {
-  render: () => (
-    <div style={{ background: '#1a1a1a', padding: '2rem', borderRadius: '8px' }}>
-      <InteractiveWagonWheel
-        options={basicOptions}
-        theme={{
-          selectedBackground: '#2a2a2a',
-          wedgeBackground: '#1a1a1a',
-          selectedBorder: '#4ECDC4',
-          wedgeBorder: '#3a3a3a',
-          centerBackground: '#0a0a0a',
-          centerText: '#ffffff',
-          centerBorder: '#3a3a3a',
-        }}
-      />
-    </div>
-  ),
-};
-
-/**
  * Colorful theme with vibrant colors.
  */
 export const ColorfulTheme: Story = {
@@ -178,44 +151,6 @@ export const ColorfulTheme: Story = {
       />
     </div>
   ),
-};
-
-/**
- * Pastel theme with soft colors.
- */
-export const PastelTheme: Story = {
-  render: () => (
-    <div style={{ background: '#fafafa', padding: '2rem', borderRadius: '8px' }}>
-      <InteractiveWagonWheel
-        options={basicOptions}
-        theme={{
-          selectedBackground: '#E8F4F8',
-          wedgeBackground: '#FFFFFF',
-          selectedBorder: '#B8E6F0',
-          wedgeBorder: '#D4E4ED',
-          centerBackground: '#F5F5F5',
-          centerText: '#5A6C7D',
-          centerBorder: '#C8D6E5',
-        }}
-      />
-    </div>
-  ),
-};
-
-/**
- * Mobile mode view.
- * On mobile, hover effects are disabled for better touch experience.
- */
-export const MobileMode: Story = {
-  render: () => <InteractiveWagonWheel options={basicOptions} isMobile={true} />,
-};
-
-/**
- * Desktop mode view.
- * Desktop mode includes hover effects and animations.
- */
-export const DesktopMode: Story = {
-  render: () => <InteractiveWagonWheel options={basicOptions} isMobile={false} />,
 };
 
 /**
@@ -250,23 +185,6 @@ export const PreSelected: Story = {
 };
 
 /**
- * Mixed content - some with images, some without.
- * The component handles mixed content gracefully.
- */
-export const MixedContent: Story = {
-  render: () => (
-    <InteractiveWagonWheel
-      options={[
-        { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
-        { key: 'textOnly1', label: 'Text Only' },
-        { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
-        { key: 'textOnly2', label: 'Also Text' },
-      ]}
-    />
-  ),
-};
-
-/**
  * Playground for experimenting with all options.
  * Use the controls panel to customize the component.
  */
@@ -285,6 +203,5 @@ export const Playground: Story = {
   args: {
     options: basicOptions,
     size: 420,
-    isMobile: false,
   },
 };

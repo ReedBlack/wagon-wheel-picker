@@ -12,7 +12,7 @@ export interface WedgeData {
   xPos: number;
   yPos: number;
   imageSize: number;
-  finalImage: string;
+  finalImage?: string;
   altLabel: string;
 }
 
@@ -49,29 +49,31 @@ const Wedge: React.FC<WedgeProps> = ({
 
   // Use custom Image component if provided, otherwise use standard img
   const ImageEl = ImageComponent || 'img';
-  const imageProps = ImageComponent
-    ? {
-        src: finalImage,
-        alt: altLabel,
-        width: imageSize,
-        height: imageSize,
-        style: {
-          objectFit: 'contain' as const,
-          transition: 'all 0.05s ease',
-        },
-      }
-    : {
-        src: finalImage,
-        alt: altLabel,
-        width: imageSize,
-        height: imageSize,
-        style: {
-          objectFit: 'contain' as const,
-          transition: 'all 0.05s ease',
-          maxWidth: '100%',
-          maxHeight: '100%',
-        },
-      };
+  const imageProps = finalImage
+    ? ImageComponent
+      ? {
+          src: finalImage,
+          alt: altLabel,
+          width: imageSize,
+          height: imageSize,
+          style: {
+            objectFit: 'contain' as const,
+            transition: 'all 0.05s ease',
+          },
+        }
+      : {
+          src: finalImage,
+          alt: altLabel,
+          width: imageSize,
+          height: imageSize,
+          style: {
+            objectFit: 'contain' as const,
+            transition: 'all 0.05s ease',
+            maxWidth: '100%',
+            maxHeight: '100%',
+          },
+        }
+    : null;
 
   return (
     <motion.g
@@ -111,7 +113,21 @@ const Wedge: React.FC<WedgeProps> = ({
             alignItems: 'center',
           }}
         >
-          <ImageEl {...imageProps} />
+          {imageProps ? (
+            <ImageEl {...imageProps} />
+          ) : (
+            <span
+              style={{
+                fontSize: isSelected ? '18px' : '14px',
+                fontWeight: isSelected ? 600 : 500,
+                color: '#333',
+                textAlign: 'center',
+                transition: 'all 0.05s ease',
+              }}
+            >
+              {altLabel}
+            </span>
+          )}
         </div>
       </foreignObject>
     </motion.g>

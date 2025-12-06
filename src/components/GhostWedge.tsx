@@ -12,29 +12,31 @@ export interface GhostWedgeProps {
 const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent, hoverFillColor }) => {
   // Use custom Image component if provided, otherwise use standard img
   const ImageEl = ImageComponent || 'img';
-  const imageProps = ImageComponent
-    ? {
-        src: wedge.finalImage,
-        alt: wedge.altLabel,
-        width: wedge.imageSize,
-        height: wedge.imageSize,
-        style: {
-          objectFit: 'contain' as const,
-          transition: 'all 0.05s ease',
-        },
-      }
-    : {
-        src: wedge.finalImage,
-        alt: wedge.altLabel,
-        width: wedge.imageSize,
-        height: wedge.imageSize,
-        style: {
-          objectFit: 'contain' as const,
-          transition: 'all 0.05s ease',
-          maxWidth: '100%',
-          maxHeight: '100%',
-        },
-      };
+  const imageProps = wedge.finalImage
+    ? ImageComponent
+      ? {
+          src: wedge.finalImage,
+          alt: wedge.altLabel,
+          width: wedge.imageSize,
+          height: wedge.imageSize,
+          style: {
+            objectFit: 'contain' as const,
+            transition: 'all 0.05s ease',
+          },
+        }
+      : {
+          src: wedge.finalImage,
+          alt: wedge.altLabel,
+          width: wedge.imageSize,
+          height: wedge.imageSize,
+          style: {
+            objectFit: 'contain' as const,
+            transition: 'all 0.05s ease',
+            maxWidth: '100%',
+            maxHeight: '100%',
+          },
+        }
+    : null;
 
   return (
     <motion.g
@@ -66,7 +68,21 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent, ho
             alignItems: 'center',
           }}
         >
-          <ImageEl {...imageProps} />
+          {imageProps ? (
+            <ImageEl {...imageProps} />
+          ) : (
+            <span
+              style={{
+                fontSize: wedge.isSelected ? '18px' : '14px',
+                fontWeight: wedge.isSelected ? 600 : 500,
+                color: '#333',
+                textAlign: 'center',
+                transition: 'all 0.05s ease',
+              }}
+            >
+              {wedge.altLabel}
+            </span>
+          )}
         </div>
       </foreignObject>
     </motion.g>

@@ -46,7 +46,6 @@ export interface WagonWheelPickerProps {
   innerPercent?: number;
   outerPercent?: number;
   theme?: WagonWheelTheme;
-  isMobile?: boolean;
   size?: number;
   ImageComponent?: React.ComponentType<any>;
   centerText?: string[];
@@ -61,7 +60,6 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   innerPercent = 0.4,
   outerPercent = 0.9,
   theme = DEFAULT_THEME,
-  isMobile: isMobileProp,
   size: sizeProp,
   ImageComponent,
   centerText,
@@ -71,23 +69,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [keyboardFocused, setKeyboardFocused] = useState(false);
-  const [detectedMobile, setDetectedMobile] = useState(false);
   const mouseDownRef = React.useRef(false);
-
-  // Auto-detect mobile if not provided
-  useEffect(() => {
-    if (isMobileProp === undefined && typeof window !== 'undefined') {
-      const checkMobile = () => {
-        setDetectedMobile(window.innerWidth <= 768);
-      };
-      checkMobile();
-      window.addEventListener('resize', checkMobile);
-      return () => window.removeEventListener('resize', checkMobile);
-    }
-    return undefined;
-  }, [isMobileProp]);
-
-  const isMobile = isMobileProp !== undefined ? isMobileProp : detectedMobile;
 
   // Normalize options to array format
   let optionKeys: string[];
@@ -172,7 +154,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
     return null;
   }
 
-  const size = sizeProp || (isMobile ? 320 : 420);
+  const size = sizeProp || 420;
 
   // Geometry calculations
   const cx = size / 2;
@@ -228,16 +210,17 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
     const midRadius = (rInner + rOuter) / 2;
     const { x: midX, y: midY } = polarToCartesian(midRadius, midAngle, cx, cy);
 
-    // Define image size
+    // Define image size - scale with wheel size
+    const scaleFactor = size / 420; // Scale relative to default size
     const baseImageSize = isSelected ? 110 : 85;
-    const imageSize = isMobile ? baseImageSize * 0.72 : baseImageSize;
+    const imageSize = baseImageSize * scaleFactor;
     const offset = imageSize / 2;
     const xPos = midX - offset;
     const yPos = midY - offset;
 
     // Get image and label
     const itemObj = optionMap[optionKey];
-    const finalImage = itemObj?.image || fallbackImage;
+    const finalImage = itemObj?.image;
     const altLabel = itemObj?.label || optionKey;
 
     return {
@@ -413,7 +396,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
             {selectedGhost}
 
             {/* Render ghost wedge for hovered slice if different */}
-            {!isMobile && hoveredGhost}
+            {hoveredGhost}
 
             {/* Render focus indicator on top of everything */}
             {focusIndicator}

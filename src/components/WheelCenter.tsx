@@ -27,6 +27,12 @@ const WheelCenter: React.FC<WheelCenterProps> = ({
   centerText = ['SELECT', 'YOUR', 'OPTION'],
   fontFamily = 'serif',
 }) => {
+  // Generate unique pattern ID for this instance
+  const patternId = React.useMemo(
+    () => `center-image-pattern-${Math.random().toString(36).substr(2, 9)}`,
+    []
+  );
+
   // Define pattern for center image if a selection exists
   let centerImagePattern: JSX.Element | null = null;
   if (selectedItem?.image) {
@@ -35,7 +41,7 @@ const WheelCenter: React.FC<WheelCenterProps> = ({
     centerImagePattern = (
       <defs>
         <pattern
-          id='center-image-pattern'
+          id={patternId}
           patternUnits='userSpaceOnUse'
           x={cx - centerSize / 2}
           y={cy - centerSize / 2}
@@ -62,7 +68,7 @@ const WheelCenter: React.FC<WheelCenterProps> = ({
         cx={cx}
         cy={cy}
         r={rInner}
-        fill={selectedItem?.image ? 'url(#center-image-pattern)' : theme.centerBackground}
+        fill={selectedItem?.image ? `url(#${patternId})` : theme.centerBackground}
         stroke={theme.centerBorder}
         strokeWidth={2}
       />
