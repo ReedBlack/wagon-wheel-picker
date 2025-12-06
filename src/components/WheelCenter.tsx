@@ -10,10 +10,9 @@ export interface WheelCenterProps {
     image?: string;
   } | null;
   theme: {
-    background?: string;
-    text?: string;
-    border?: string;
-    divider?: string;
+    centerBackground?: string;
+    centerText?: string;
+    centerBorder?: string;
   };
   centerText?: string[];
   fontFamily?: string;
@@ -63,8 +62,8 @@ const WheelCenter: React.FC<WheelCenterProps> = ({
         cx={cx}
         cy={cy}
         r={rInner}
-        fill={selectedItem?.image ? 'url(#center-image-pattern)' : theme.background}
-        stroke={theme.divider || theme.border}
+        fill={selectedItem?.image ? 'url(#center-image-pattern)' : theme.centerBackground}
+        stroke={theme.centerBorder}
         strokeWidth={2}
       />
       {!selectedItem && (
@@ -85,7 +84,7 @@ const WheelCenter: React.FC<WheelCenterProps> = ({
               fontFamily: fontFamily,
               fontSize: '16px',
               fontWeight: 500,
-              color: theme.text,
+              color: theme.centerText,
               textAlign: 'center',
               pointerEvents: 'none',
               lineHeight: 1.2,

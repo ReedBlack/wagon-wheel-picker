@@ -129,13 +129,16 @@ npm run build-storybook
 
 ```jsx
 const customTheme = {
-  tertiaryBackground: '#e3f2fd',  // Selected option background
-  surfaceBackground: '#ffffff',    // Unselected option background
-  tertiary: '#2196f3',             // Selected option border
-  border: '#cccccc',               // Unselected option border
-  background: '#fafafa',           // Center circle background
-  text: '#333333',                 // Center text color
-  divider: '#e0e0e0',              // Center circle border
+  selectedBackground: '#e3f2fd',       // Selected wedge fill color
+  wedgeBackground: '#ffffff',          // Unselected wedge fill color
+  selectedBorder: '#2196f3',           // Selected wedge border color
+  wedgeBorder: '#cccccc',              // Unselected wedge border color
+  centerBackground: '#fafafa',         // Center circle fill color
+  centerText: '#333333',               // Center text color
+  centerBorder: '#e0e0e0',             // Center circle border color
+  focusRingColor: '#2196f3',           // Keyboard focus ring color
+  hoverBackground: '#f0f8ff',          // Hover state for unselected wedges (optional)
+  selectedHoverBackground: '#d0e8f8',  // Hover state for selected wedge (optional)
 };
 
 <WagonWheelPicker
@@ -209,13 +212,16 @@ const customTheme = {
 
 ```typescript
 {
-  tertiaryBackground?: string;  // Selected option fill
-  surfaceBackground?: string;   // Unselected option fill
-  tertiary?: string;            // Selected option border
-  border?: string;              // Unselected option border
-  background?: string;          // Center circle fill
-  text?: string;                // Center text color
-  divider?: string;             // Center circle border
+  selectedBackground?: string;       // Selected wedge fill color
+  wedgeBackground?: string;          // Unselected wedge fill color
+  selectedBorder?: string;           // Selected wedge border color
+  wedgeBorder?: string;              // Unselected wedge border color
+  centerBackground?: string;         // Center circle fill color
+  centerText?: string;               // Center text color
+  centerBorder?: string;             // Center circle border color
+  focusRingColor?: string;           // Keyboard focus ring color
+  hoverBackground?: string;          // Hover state for unselected wedges (defaults to wedgeBackground)
+  selectedHoverBackground?: string;  // Hover state for selected wedge (defaults to selectedBackground)
 }
 ```
 

@@ -6,9 +6,10 @@ export interface GhostWedgeProps {
   wedge: WedgeData;
   size: number;
   ImageComponent?: React.ComponentType<any>;
+  hoverFillColor?: string;
 }
 
-const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent }) => {
+const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent, hoverFillColor }) => {
   // Use custom Image component if provided, otherwise use standard img
   const ImageEl = ImageComponent || 'img';
   const imageProps = ImageComponent
@@ -44,7 +45,7 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent }) 
     >
       <motion.path
         d={wedge.d}
-        fill={wedge.fillColor}
+        fill={hoverFillColor ?? wedge.fillColor}
         stroke={wedge.strokeColor}
         strokeWidth={wedge.strokeWidth}
         style={{ pointerEvents: 'none', filter: 'drop-shadow(0px 3px 12px rgba(0, 0, 0, 0.25))' }}

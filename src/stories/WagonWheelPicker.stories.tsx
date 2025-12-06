@@ -145,13 +145,13 @@ export const DarkTheme: Story = {
       <InteractiveWagonWheel
         options={basicOptions}
         theme={{
-          tertiaryBackground: '#2a2a2a',
-          surfaceBackground: '#1a1a1a',
-          tertiary: '#4ECDC4',
-          border: '#3a3a3a',
-          background: '#0a0a0a',
-          text: '#ffffff',
-          divider: '#3a3a3a',
+          selectedBackground: '#2a2a2a',
+          wedgeBackground: '#1a1a1a',
+          selectedBorder: '#4ECDC4',
+          wedgeBorder: '#3a3a3a',
+          centerBackground: '#0a0a0a',
+          centerText: '#ffffff',
+          centerBorder: '#3a3a3a',
         }}
       />
     </div>
@@ -167,13 +167,13 @@ export const ColorfulTheme: Story = {
       <InteractiveWagonWheel
         options={basicOptions}
         theme={{
-          tertiaryBackground: '#FFE66D',
-          surfaceBackground: '#FFFFFF',
-          tertiary: '#FF6B6B',
-          border: '#4ECDC4',
-          background: '#F4F4F4',
-          text: '#2C3E50',
-          divider: '#95E1D3',
+          selectedBackground: '#FFE66D',
+          wedgeBackground: '#FFFFFF',
+          selectedBorder: '#FF6B6B',
+          wedgeBorder: '#4ECDC4',
+          centerBackground: '#F4F4F4',
+          centerText: '#2C3E50',
+          centerBorder: '#95E1D3',
         }}
       />
     </div>
@@ -189,13 +189,13 @@ export const PastelTheme: Story = {
       <InteractiveWagonWheel
         options={basicOptions}
         theme={{
-          tertiaryBackground: '#E8F4F8',
-          surfaceBackground: '#FFFFFF',
-          tertiary: '#B8E6F0',
-          border: '#D4E4ED',
-          background: '#F5F5F5',
-          text: '#5A6C7D',
-          divider: '#C8D6E5',
+          selectedBackground: '#E8F4F8',
+          wedgeBackground: '#FFFFFF',
+          selectedBorder: '#B8E6F0',
+          wedgeBorder: '#D4E4ED',
+          centerBackground: '#F5F5F5',
+          centerText: '#5A6C7D',
+          centerBorder: '#C8D6E5',
         }}
       />
     </div>

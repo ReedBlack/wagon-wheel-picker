@@ -8,13 +8,16 @@ import GhostWedge from './GhostWedge';
 import { polarToCartesian } from '../utils/geometry';
 
 const DEFAULT_THEME = {
-  tertiaryBackground: '#f0f0f0',
-  surfaceBackground: '#ffffff',
-  tertiary: '#007bff',
-  border: '#cccccc',
-  background: '#fafafa',
-  text: '#333333',
-  divider: '#e0e0e0',
+  selectedBackground: '#f0f0f0',
+  wedgeBackground: '#ffffff',
+  selectedBorder: '#007bff',
+  wedgeBorder: '#cccccc',
+  centerBackground: '#fafafa',
+  centerText: '#333333',
+  centerBorder: '#e0e0e0',
+  focusRingColor: '#007bff',
+  hoverBackground: undefined,  // If undefined, uses wedge/selected background
+  selectedHoverBackground: undefined,  // If undefined, uses selectedBackground
 };
 
 export interface WagonWheelOption {
@@ -24,13 +27,16 @@ export interface WagonWheelOption {
 }
 
 export interface WagonWheelTheme {
-  tertiaryBackground?: string;
-  surfaceBackground?: string;
-  tertiary?: string;
-  border?: string;
-  background?: string;
-  text?: string;
-  divider?: string;
+  selectedBackground?: string;       // Selected wedge fill color
+  wedgeBackground?: string;          // Unselected wedge fill color
+  selectedBorder?: string;           // Selected wedge border color
+  wedgeBorder?: string;              // Unselected wedge border color
+  centerBackground?: string;         // Center circle fill color
+  centerText?: string;               // Center text color
+  centerBorder?: string;             // Center circle border color
+  focusRingColor?: string;           // Keyboard focus ring color
+  hoverBackground?: string;          // Hover state for unselected wedges (defaults to wedgeBackground)
+  selectedHoverBackground?: string;  // Hover state for selected wedge (defaults to selectedBackground)
 }
 
 export interface WagonWheelPickerProps {
@@ -208,12 +214,12 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
 
     // Define colors based on selection
     const fillColor = isSelected
-      ? theme.tertiaryBackground || DEFAULT_THEME.tertiaryBackground
-      : theme.surfaceBackground || DEFAULT_THEME.surfaceBackground;
+      ? theme.selectedBackground || DEFAULT_THEME.selectedBackground
+      : theme.wedgeBackground || DEFAULT_THEME.wedgeBackground;
 
     const strokeColor = isSelected
-      ? theme.tertiary || DEFAULT_THEME.tertiary
-      : theme.border || DEFAULT_THEME.border;
+      ? theme.selectedBorder || DEFAULT_THEME.selectedBorder
+      : theme.wedgeBorder || DEFAULT_THEME.wedgeBorder;
 
     const strokeWidth = isSelected ? 4 : 1.5;
 
@@ -250,21 +256,19 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
     };
   });
 
-  const normalWedges = wedgeData.map((wedge) => {
-    const isFocused = focusedIndex === wedge.index;
-    return (
-      <Wedge
-        key={wedge.baseKey}
-        wedge={wedge}
-        size={size}
-        onClick={onClick}
-        onMouseEnter={() => setHoverIndex(wedge.index)}
-        onMouseLeave={() => setHoverIndex(null)}
-        ImageComponent={ImageComponent}
-        isFocused={isFocused}
-      />
-    );
-  });
+  const normalWedges = wedgeData.map((wedge) => (
+    <Wedge
+      key={wedge.baseKey}
+      wedge={wedge}
+      size={size}
+      onClick={onClick}
+      onMouseEnter={() => setHoverIndex(wedge.index)}
+      onMouseLeave={() => setHoverIndex(null)}
+      ImageComponent={ImageComponent}
+    />
+  ));
+
+  const mergedTheme = { ...DEFAULT_THEME, ...theme };
 
   // Render ghost wedge for selected slice
   let selectedGhost: JSX.Element | null = null;
@@ -278,6 +282,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
           wedge={selWedge}
           size={size}
           ImageComponent={ImageComponent}
+          hoverFillColor={mergedTheme.selectedHoverBackground}
         />
       );
     }
@@ -294,12 +299,32 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
           wedge={hovered}
           size={size}
           ImageComponent={ImageComponent}
+          hoverFillColor={mergedTheme.hoverBackground}
         />
       );
     }
   }
 
-  const mergedTheme = { ...DEFAULT_THEME, ...theme };
+  // Render focus indicator for keyboard-focused wedge
+  let focusIndicator: JSX.Element | null = null;
+  if (focusedIndex !== null && focusedIndex >= 0 && focusedIndex < wedgeData.length) {
+    const focused = wedgeData[focusedIndex];
+    focusIndicator = (
+      <path
+        key={`focus-indicator-${focused.baseKey}`}
+        d={focused.d}
+        fill="none"
+        stroke={mergedTheme.focusRingColor}
+        strokeWidth={4}
+        style={{
+          pointerEvents: 'none',
+          transformOrigin: 'center',
+          transformBox: 'fill-box',
+          transform: 'scale(1.01)'
+        }}
+      />
+    );
+  }
 
   return (
     <div
@@ -340,7 +365,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
               overflow: 'visible',
               outline: 'none',
               borderRadius: '50%',
-              boxShadow: keyboardFocused ? '0 0 0 3px #007bff' : 'none',
+              boxShadow: keyboardFocused ? `0 0 0 3px ${mergedTheme.focusRingColor}` : 'none',
             }}
             xmlns='http://www.w3.org/2000/svg'
             tabIndex={0}
@@ -389,6 +414,9 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
 
             {/* Render ghost wedge for hovered slice if different */}
             {!isMobile && hoveredGhost}
+
+            {/* Render focus indicator on top of everything */}
+            {focusIndicator}
           </svg>
         </div>
       </div>
