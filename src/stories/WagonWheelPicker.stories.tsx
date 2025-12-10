@@ -40,21 +40,27 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Sample data - using real Taco Ninja images
+// Use relative paths that work with the base path in production
+const getImagePath = (filename: string) =>
+  process.env.NODE_ENV === 'production'
+    ? `./images/categoryImages/${filename}`
+    : `/images/categoryImages/${filename}`;
+
 const basicOptions = [
-  { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
-  { key: 'chicken', label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
-  { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
-  { key: 'sea', label: 'Seafood', image: '/images/categoryImages/SEA.png' },
+  { key: 'beef', label: 'Beef', image: getImagePath('BEEF.png') },
+  { key: 'chicken', label: 'Chicken', image: getImagePath('CHICKEN.png') },
+  { key: 'pork', label: 'Pork', image: getImagePath('PORK.png') },
+  { key: 'sea', label: 'Seafood', image: getImagePath('SEA.png') },
 ];
 
 const manyOptions = [
-  { key: 'beef', label: 'Beef', image: '/images/categoryImages/BEEF.png' },
-  { key: 'chicken', label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
-  { key: 'pork', label: 'Pork', image: '/images/categoryImages/PORK.png' },
-  { key: 'sea', label: 'Seafood', image: '/images/categoryImages/SEA.png' },
-  { key: 'veg', label: 'Vegetarian', image: '/images/categoryImages/VEG.png' },
-  { key: 'wild', label: 'Wild Game', image: '/images/categoryImages/WILD.png' },
-  { key: 'brunch', label: 'Brunch', image: '/images/categoryImages/BRUNCH.png' },
+  { key: 'beef', label: 'Beef', image: getImagePath('BEEF.png') },
+  { key: 'chicken', label: 'Chicken', image: getImagePath('CHICKEN.png') },
+  { key: 'pork', label: 'Pork', image: getImagePath('PORK.png') },
+  { key: 'sea', label: 'Seafood', image: getImagePath('SEA.png') },
+  { key: 'veg', label: 'Vegetarian', image: getImagePath('VEG.png') },
+  { key: 'wild', label: 'Wild Game', image: getImagePath('WILD.png') },
+  { key: 'brunch', label: 'Brunch', image: getImagePath('BRUNCH.png') },
 ];
 
 const textOnlyOptions = [
