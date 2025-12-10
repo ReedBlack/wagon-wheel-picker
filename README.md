@@ -161,6 +161,8 @@ const customTheme = {
 />
 ```
 
+**Tip:** Set `innerPercent={0}` to create a pie slice picker instead of a wagon wheel!
+
 ### Custom Center Text
 
 ```jsx
