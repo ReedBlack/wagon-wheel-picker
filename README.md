@@ -6,6 +6,8 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ![npm downloads](https://img.shields.io/npm/dm/react-wagon-wheel-picker)
 ![license](https://img.shields.io/npm/l/react-wagon-wheel-picker)
 
+**[View Live Demo](https://reedblack.github.io/wagon-wheel-picker/)**
+
 ## ✨ Features
 
 - **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
@@ -102,13 +104,15 @@ const options = {
 
 ## Interactive Examples
 
-Explore live examples and experiment with all customization options in Storybook:
+**[View Live Storybook Demo](https://reedblack.github.io/wagon-wheel-picker/)**
+
+Or explore locally:
 
 ```bash
 npm run storybook
 ```
 
-This opens an interactive playground at `http://localhost:6006` with:
+The interactive playground includes:
 - **15+ example stories** showcasing different use cases
 - **Live controls** to experiment with props and themes
 - **Multiple themes** (dark, colorful, pastel)
