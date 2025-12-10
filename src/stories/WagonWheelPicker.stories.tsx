@@ -154,25 +154,15 @@ export const ColorfulTheme: Story = {
 };
 
 /**
- * Object format for options.
- * You can pass options as an object with keys instead of an array.
+ * Pie slice picker style.
+ * Set innerPercent to 0 to create pie slices instead of a wagon wheel!
  */
-export const ObjectFormat: Story = {
-  render: () => {
-    const [selected, setSelected] = useState<string | undefined>();
-
-    return (
-      <WagonWheelPicker
-        options={{
-          beef: { label: 'Beef', image: '/images/categoryImages/BEEF.png' },
-          chicken: { label: 'Chicken', image: '/images/categoryImages/CHICKEN.png' },
-          pork: { label: 'Pork', image: '/images/categoryImages/PORK.png' },
-          sea: '/images/categoryImages/SEA.png', // Shorthand for image-only
-        }}
-        value={selected}
-        onClick={setSelected}
-      />
-    );
+export const PieSlicePicker: Story = {
+  render: (args) => <InteractiveWagonWheel {...args} />,
+  args: {
+    options: basicOptions,
+    innerPercent: 0,
+    centerText: ['PIE', 'SLICE', 'PICKER'],
   },
 };
 
