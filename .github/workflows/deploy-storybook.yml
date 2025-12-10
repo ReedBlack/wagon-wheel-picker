@@ -37,7 +37,7 @@ jobs:
           rm -rf node_modules/.cache
 
       - name: Build Storybook
-        run: NODE_ENV=production npm run build-storybook
+        run: NODE_ENV=production npx storybook build --no-manager-cache
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
