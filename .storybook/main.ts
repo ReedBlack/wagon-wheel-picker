@@ -18,6 +18,7 @@ const config: StorybookConfig = {
   viteFinal: async (config) => {
     return {
       ...config,
+      base: process.env.NODE_ENV === 'production' ? '/wagon-wheel-picker/' : '/',
       esbuild: {
         ...config.esbuild,
         jsx: 'automatic',
