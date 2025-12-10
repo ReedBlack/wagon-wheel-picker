@@ -34,7 +34,7 @@ jobs:
       - name: Build Storybook
         run: |
           rm -rf storybook-static
-          npm run build-storybook
+          NODE_ENV=production npm run build-storybook
           cp -r public/* storybook-static/
 
       - name: Setup Pages

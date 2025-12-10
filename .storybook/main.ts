@@ -14,7 +14,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  // staticDirs: ['../public'], // Disabled - copying manually in CI to avoid race condition
+  staticDirs: process.env.NODE_ENV === 'production' ? undefined : ['../public'],
   viteFinal: async (config) => {
     return {
       ...config,
