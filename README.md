@@ -2,24 +2,23 @@
 
 A playful, interactive radial selection component for React. Perfect for kids' apps, game UIs, and fun, lighthearted interfaces. Display options in a circular wagon wheel layout with bouncy animations and delightful hover effects.
 
-![npm version](https://img.shields.io/npm/v/@reedblack/wagon-wheel-picker)
-![npm downloads](https://img.shields.io/npm/dm/@reedblack/wagon-wheel-picker)
-![license](https://img.shields.io/npm/l/@reedblack/wagon-wheel-picker)
+![npm version](https://img.shields.io/npm/v/react-wagon-wheel-picker)
+![npm downloads](https://img.shields.io/npm/dm/react-wagon-wheel-picker)
+![license](https://img.shields.io/npm/l/react-wagon-wheel-picker)
 
 ## ✨ Features
 
 - **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
 - **Bouncy animations** - Springy, playful transitions powered by Framer Motion
-- **Fully customizable** - Themeable colors, sizing, and behavior
+- **Customizable** - Themeable colors, sizing, and behavior
 - **Framework flexible** - Works with Next.js Image or standard img tags
 - **Responsive** - Auto-detects mobile or accepts manual size control
 - **TypeScript support** - Full type definitions included
-- **Lightweight** - Minimal dependencies
 
-## 🎮 Perfect For
+## Perfect For
 
 - Kids' apps and educational games
-- Food and recipe apps (like [Taco Ninja](https://taconinja.app))
+- Food and recipe apps (like [Taco Ninja](https://taco-ninja.vercel.app/))
 - Playful e-commerce product pickers
 - Character or avatar selectors
 - Game lobbies and casual game UIs
@@ -28,7 +27,7 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ## 📦 Installation
 
 ```bash
-npm install @reedblack/wagon-wheel-picker framer-motion
+npm install react-wagon-wheel-picker framer-motion
 ```
 
 > **Note**: Framer Motion is required for the bouncy, playful animations that make this component fun!
@@ -38,7 +37,7 @@ npm install @reedblack/wagon-wheel-picker framer-motion
 ### Basic Usage
 
 ```jsx
-import { WagonWheelPicker } from '@reedblack/wagon-wheel-picker';
+import { WagonWheelPicker } from 'react-wagon-wheel-picker';
 
 function MyComponent() {
   const [selected, setSelected] = useState('option1');
@@ -63,7 +62,7 @@ function MyComponent() {
 
 ```jsx
 import Image from 'next/image';
-import { WagonWheelPicker } from '@reedblack/wagon-wheel-picker';
+import { WagonWheelPicker } from 'react-wagon-wheel-picker';
 
 function MyComponent() {
   return (
@@ -101,7 +100,7 @@ const options = {
 <WagonWheelPicker options={options} value="option1" onClick={handleClick} />
 ```
 
-## 🎭 Interactive Examples
+## Interactive Examples
 
 Explore live examples and experiment with all customization options in Storybook:
 
@@ -232,7 +231,7 @@ const customTheme = {
 The package also exports geometry utility functions:
 
 ```jsx
-import { polarToCartesian, degToRad, generateWedgePath } from '@reedblack/wagon-wheel-picker';
+import { polarToCartesian, degToRad, generateWedgePath } from 'react-wagon-wheel-picker';
 
 // Convert polar to cartesian coordinates
 const { x, y } = polarToCartesian(100, 45, 200, 200);
@@ -265,4 +264,4 @@ Found a bug? [Open an issue](https://github.com/reedblack/wagon-wheel-picker/iss
 
 ## 💡 Inspiration
 
-Created for [Taco Ninja](https://taconinja.app) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!
+Created for [Taco Ninja](https://taco-ninja.vercel.app/) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!
