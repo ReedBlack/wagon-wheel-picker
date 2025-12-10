@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import * as m from 'framer-motion/m';
 import { WedgeData } from './Wedge';
 
 export interface GhostWedgeProps {
@@ -39,13 +39,13 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent, ho
     : null;
 
   return (
-    <motion.g
+    <m.g
       initial={{ scale: 1.05 }}
       animate={{ scale: 1.05 }}
       transition={{ type: 'spring', stiffness: size }}
       style={{ pointerEvents: 'none' }}
     >
-      <motion.path
+      <m.path
         d={wedge.d}
         fill={hoverFillColor ?? wedge.fillColor}
         stroke={wedge.strokeColor}
@@ -85,7 +85,7 @@ const GhostWedge: React.FC<GhostWedgeProps> = ({ wedge, size, ImageComponent, ho
           )}
         </div>
       </foreignObject>
-    </motion.g>
+    </m.g>
   );
 };
 

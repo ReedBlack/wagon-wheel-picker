@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import * as m from 'framer-motion/m';
 
 export interface WedgeData {
   baseKey: string;
@@ -76,7 +76,7 @@ const Wedge: React.FC<WedgeProps> = ({
     : null;
 
   return (
-    <motion.g
+    <m.g
       key={baseKey}
       initial={{ scale: 1 }}
       whileHover={{ scale: 1.05 }}
@@ -89,7 +89,7 @@ const Wedge: React.FC<WedgeProps> = ({
       aria-checked={isSelected}
       aria-label={altLabel}
     >
-      <motion.path
+      <m.path
         d={d}
         fill={fillColor}
         stroke={strokeColor}
@@ -130,7 +130,7 @@ const Wedge: React.FC<WedgeProps> = ({
           )}
         </div>
       </foreignObject>
-    </motion.g>
+    </m.g>
   );
 };
 

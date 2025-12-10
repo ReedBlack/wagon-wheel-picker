@@ -2,25 +2,24 @@
 
 A playful, interactive radial selection component for React. Perfect for kids' apps, game UIs, and fun, lighthearted interfaces. Display options in a circular wagon wheel layout with bouncy animations and delightful hover effects.
 
-![npm version](https://img.shields.io/npm/v/react-wagon-wheel-picker)
-![npm downloads](https://img.shields.io/npm/dm/react-wagon-wheel-picker)
-![license](https://img.shields.io/npm/l/react-wagon-wheel-picker)
-
-**[View Live Demo](https://reedblack.github.io/wagon-wheel-picker/)**
+![npm version](https://img.shields.io/npm/v/@reedblack/wagon-wheel-picker)
+![npm downloads](https://img.shields.io/npm/dm/@reedblack/wagon-wheel-picker)
+![license](https://img.shields.io/npm/l/@reedblack/wagon-wheel-picker)
 
 ## ✨ Features
 
 - **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
 - **Bouncy animations** - Springy, playful transitions powered by Framer Motion
-- **Customizable** - Themeable colors, sizing, and behavior
+- **Fully customizable** - Themeable colors, sizing, and behavior
 - **Framework flexible** - Works with Next.js Image or standard img tags
 - **Responsive** - Auto-detects mobile or accepts manual size control
 - **TypeScript support** - Full type definitions included
+- **Lightweight** - Minimal dependencies
 
 ## Perfect For
 
 - Kids' apps and educational games
-- Food and recipe apps (like [Taco Ninja](https://taco-ninja.vercel.app/))
+- Food and recipe apps (like [Taco Ninja](https://taconinja.app))
 - Playful e-commerce product pickers
 - Character or avatar selectors
 - Game lobbies and casual game UIs
@@ -29,17 +28,19 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ## 📦 Installation
 
 ```bash
-npm install react-wagon-wheel-picker framer-motion
+npm install @reedblack/wagon-wheel-picker framer-motion
 ```
 
 > **Note**: Framer Motion is required for the bouncy, playful animations that make this component fun!
+> 
+> **Bundle Size Optimization**: This package uses Framer Motion's lightweight `m` component with `LazyMotion` and `domAnimation` features. When you use this package, framer-motion will only add approximately **15KB** to your bundle (compared to ~50KB+ if you used the full framer-motion library directly). This optimization is handled automatically - no configuration needed.
 
 ## 🚀 Quick Start
 
 ### Basic Usage
 
 ```jsx
-import { WagonWheelPicker } from 'react-wagon-wheel-picker';
+import { WagonWheelPicker } from '@reedblack/wagon-wheel-picker';
 
 function MyComponent() {
   const [selected, setSelected] = useState('option1');
@@ -64,7 +65,7 @@ function MyComponent() {
 
 ```jsx
 import Image from 'next/image';
-import { WagonWheelPicker } from 'react-wagon-wheel-picker';
+import { WagonWheelPicker } from '@reedblack/wagon-wheel-picker';
 
 function MyComponent() {
   return (
@@ -102,17 +103,15 @@ const options = {
 <WagonWheelPicker options={options} value="option1" onClick={handleClick} />
 ```
 
-## Interactive Examples
+## 🎭 Interactive Examples
 
-**[View Live Storybook Demo](https://reedblack.github.io/wagon-wheel-picker/)**
-
-Or explore locally:
+Explore live examples and experiment with all customization options in Storybook:
 
 ```bash
 npm run storybook
 ```
 
-The interactive playground includes:
+This opens an interactive playground at `http://localhost:6006` with:
 - **15+ example stories** showcasing different use cases
 - **Live controls** to experiment with props and themes
 - **Multiple themes** (dark, colorful, pastel)
@@ -132,16 +131,13 @@ npm run build-storybook
 
 ```jsx
 const customTheme = {
-  selectedBackground: '#e3f2fd',       // Selected wedge fill color
-  wedgeBackground: '#ffffff',          // Unselected wedge fill color
-  selectedBorder: '#2196f3',           // Selected wedge border color
-  wedgeBorder: '#cccccc',              // Unselected wedge border color
-  centerBackground: '#fafafa',         // Center circle fill color
-  centerText: '#333333',               // Center text color
-  centerBorder: '#e0e0e0',             // Center circle border color
-  focusRingColor: '#2196f3',           // Keyboard focus ring color
-  hoverBackground: '#f0f8ff',          // Hover state for unselected wedges (optional)
-  selectedHoverBackground: '#d0e8f8',  // Hover state for selected wedge (optional)
+  tertiaryBackground: '#e3f2fd',  // Selected option background
+  surfaceBackground: '#ffffff',    // Unselected option background
+  tertiary: '#2196f3',             // Selected option border
+  border: '#cccccc',               // Unselected option border
+  background: '#fafafa',           // Center circle background
+  text: '#333333',                 // Center text color
+  divider: '#e0e0e0',              // Center circle border
 };
 
 <WagonWheelPicker
@@ -160,8 +156,6 @@ const customTheme = {
   outerPercent={0.95}     // Outer radius (95% of total)
 />
 ```
-
-**Tip:** Set `innerPercent={0}` to create a pie slice picker instead of a wagon wheel!
 
 ### Custom Center Text
 
@@ -217,16 +211,13 @@ const customTheme = {
 
 ```typescript
 {
-  selectedBackground?: string;       // Selected wedge fill color
-  wedgeBackground?: string;          // Unselected wedge fill color
-  selectedBorder?: string;           // Selected wedge border color
-  wedgeBorder?: string;              // Unselected wedge border color
-  centerBackground?: string;         // Center circle fill color
-  centerText?: string;               // Center text color
-  centerBorder?: string;             // Center circle border color
-  focusRingColor?: string;           // Keyboard focus ring color
-  hoverBackground?: string;          // Hover state for unselected wedges (defaults to wedgeBackground)
-  selectedHoverBackground?: string;  // Hover state for selected wedge (defaults to selectedBackground)
+  tertiaryBackground?: string;  // Selected option fill
+  surfaceBackground?: string;   // Unselected option fill
+  tertiary?: string;            // Selected option border
+  border?: string;              // Unselected option border
+  background?: string;          // Center circle fill
+  text?: string;                // Center text color
+  divider?: string;             // Center circle border
 }
 ```
 
@@ -237,7 +228,7 @@ const customTheme = {
 The package also exports geometry utility functions:
 
 ```jsx
-import { polarToCartesian, degToRad, generateWedgePath } from 'react-wagon-wheel-picker';
+import { polarToCartesian, degToRad, generateWedgePath } from '@reedblack/wagon-wheel-picker';
 
 // Convert polar to cartesian coordinates
 const { x, y } = polarToCartesian(100, 45, 200, 200);
@@ -270,4 +261,4 @@ Found a bug? [Open an issue](https://github.com/reedblack/wagon-wheel-picker/iss
 
 ## 💡 Inspiration
 
-Created for [Taco Ninja](https://taco-ninja.vercel.app/) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!
+Created for [Taco Ninja](https://taconinja.app) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 import WheelCenter from './WheelCenter';
 import Wedge, { WedgeData } from './Wedge';
@@ -308,33 +309,34 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <LazyMotion features={domAnimation}>
       <div
         style={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
         <div
           style={{
-            position: 'relative',
-            width: size,
-            height: size,
-            filter: 'drop-shadow(0px 3px 10px rgba(0, 0, 0, 0.12))',
-            padding: '20px',
-            margin: '-20px',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <svg
+          <div
+            style={{
+              position: 'relative',
+              width: size,
+              height: size,
+              filter: 'drop-shadow(0px 3px 10px rgba(0, 0, 0, 0.12))',
+              padding: '20px',
+              margin: '-20px',
+            }}
+          >
+            <svg
             width={size}
             height={size}
             viewBox={`0 0 ${size} ${size}`}
@@ -398,10 +400,11 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
 
             {/* Render focus indicator on top of everything */}
             {focusIndicator}
-          </svg>
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
+    </LazyMotion>
   );
 };
 
