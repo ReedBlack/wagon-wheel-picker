@@ -306,12 +306,12 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
         d={focused.d}
         fill="none"
         stroke={mergedTheme.focusRingColor}
-        strokeWidth={4}
+        strokeWidth={3}
         style={{
           pointerEvents: 'none',
           transformOrigin: 'center',
           transformBox: 'fill-box',
-          transform: 'scale(1.01)'
+          transform: 'scale(1.09)'
         }}
       />
     );
@@ -368,6 +368,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
             onMouseDown={() => {
               mouseDownRef.current = true;
               setKeyboardFocused(false);
+              setFocusedIndex(null);
             }}
             onFocus={() => {
               // If focus happened without mouseDown, it's keyboard focus (Tab)

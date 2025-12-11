@@ -106,6 +106,27 @@ const options = {
 <WagonWheelPicker options={options} value="option1" onClick={handleClick} />
 ```
 
+### With Different Center Images
+
+```jsx
+const options = [
+  {
+    key: 'beef',
+    label: 'Beef',
+    image: '/beef-small.png',      // Image shown in wedge
+    centerImage: '/beef-large.png' // Different image shown in center when selected
+  },
+  {
+    key: 'chicken',
+    label: 'Chicken',
+    image: '/chicken-small.png',
+    centerImage: '/chicken-large.png'
+  },
+];
+
+<WagonWheelPicker options={options} value="beef" onClick={handleClick} />
+```
+
 ## Interactive Examples
 
 **[View Live Storybook Demo](https://reedblack.github.io/wagon-wheel-picker/)** - Explore all features interactively!
@@ -196,9 +217,10 @@ const customTheme = {
 **Array format:**
 ```typescript
 {
-  key: string;      // Required: unique identifier
-  label?: string;   // Optional: display label
-  image?: string;   // Optional: image URL
+  key: string;          // Required: unique identifier
+  label?: string;       // Optional: display label
+  image?: string;       // Optional: image URL for wedge
+  centerImage?: string; // Optional: different image for center circle when selected
 }
 ```
 
@@ -208,6 +230,7 @@ const customTheme = {
   [key: string]: {
     label?: string;
     image?: string;
+    centerImage?: string;
   } | string  // or just image URL
 }
 ```
