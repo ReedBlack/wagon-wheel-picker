@@ -23,6 +23,7 @@ export interface WagonWheelOption {
   key: string;
   label?: string;
   image?: string;
+  centerImage?: string;  // Optional separate image for center circle
 }
 
 export interface WagonWheelTheme {
@@ -146,7 +147,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
       const opt = options[k];
       optionMap[k] = typeof opt === 'string'
         ? { key: k, label: k, image: opt }
-        : { key: k, label: opt.label || k, image: opt.image };
+        : { key: k, label: opt.label || k, image: opt.image, centerImage: opt.centerImage };
     });
   } else {
     console.error('WagonWheelPicker: options must be an array or object');
@@ -168,6 +169,14 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   const selectedItem = Object.values(optionMap).find(
     (item) => item.key === value,
   );
+
+  // Create a center item with centerImage if available, otherwise use regular image
+  const centerItem = selectedItem
+    ? {
+        ...selectedItem,
+        image: selectedItem.centerImage || selectedItem.image,
+      }
+    : undefined;
 
   // Build data for each wedge
   const wedgeData: WedgeData[] = optionKeys.map((optionKey, i) => {
@@ -383,7 +392,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
               cx={cx}
               cy={cy}
               rInner={rInner}
-              selectedItem={selectedItem}
+              selectedItem={centerItem}
               theme={mergedTheme}
               centerText={centerText}
               fontFamily={fontFamily}
