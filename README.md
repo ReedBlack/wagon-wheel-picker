@@ -6,9 +6,13 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ![npm downloads](https://img.shields.io/npm/dm/@reedblack/wagon-wheel-picker)
 ![license](https://img.shields.io/npm/l/@reedblack/wagon-wheel-picker)
 
+**[Storybook Demo](https://reedblack.github.io/wagon-wheel-picker/)**
+
+![Wagon Wheel Picker in action](wagonwheelexample.gif)
+
 ## ✨ Features
 
-- **Playful radial layout** - Options arranged in a fun, circular wagon wheel pattern
+- **Playful radial layout** - Options arranged in a circular wagon wheel pattern
 - **Bouncy animations** - Springy, playful transitions powered by Framer Motion
 - **Fully customizable** - Themeable colors, sizing, and behavior
 - **Framework flexible** - Works with Next.js Image or standard img tags
@@ -19,7 +23,6 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 ## Perfect For
 
 - Kids' apps and educational games
-- Food and recipe apps (like [Taco Ninja](https://taconinja.app))
 - Playful e-commerce product pickers
 - Character or avatar selectors
 - Game lobbies and casual game UIs
@@ -31,9 +34,9 @@ A playful, interactive radial selection component for React. Perfect for kids' a
 npm install @reedblack/wagon-wheel-picker framer-motion
 ```
 
-> **Note**: Framer Motion is required for the bouncy, playful animations that make this component fun!
+> **Note**: Framer Motion is required for the bouncy, playful animations that make this component fun
 > 
-> **Bundle Size Optimization**: This package uses Framer Motion's lightweight `m` component with `LazyMotion` and `domAnimation` features. When you use this package, framer-motion will only add approximately **15KB** to your bundle (compared to ~50KB+ if you used the full framer-motion library directly). This optimization is handled automatically - no configuration needed.
+> **Bundle Size Optimization**: This package uses Framer Motion's lightweight `m` component with `LazyMotion` and `domAnimation` features. When you use this package, framer-motion will only add approximately **15KB** to your bundle (compared to ~50KB+ if you used the full framer-motion library directly).
 
 ## 🚀 Quick Start
 
@@ -103,9 +106,11 @@ const options = {
 <WagonWheelPicker options={options} value="option1" onClick={handleClick} />
 ```
 
-## 🎭 Interactive Examples
+## Interactive Examples
 
-Explore live examples and experiment with all customization options in Storybook:
+**[View Live Storybook Demo](https://reedblack.github.io/wagon-wheel-picker/)** - Explore all features interactively!
+
+Or run locally:
 
 ```bash
 npm run storybook
@@ -221,25 +226,6 @@ const customTheme = {
 }
 ```
 
-## 🔧 Advanced Usage
-
-### Utility Functions
-
-The package also exports geometry utility functions:
-
-```jsx
-import { polarToCartesian, degToRad, generateWedgePath } from '@reedblack/wagon-wheel-picker';
-
-// Convert polar to cartesian coordinates
-const { x, y } = polarToCartesian(100, 45, 200, 200);
-
-// Convert degrees to radians
-const radians = degToRad(90);
-
-// Generate SVG path for a wedge
-const path = generateWedgePath(200, 200, 150, 50, 0, 60);
-```
-
 ## 🎯 Best Practices
 
 - **3-8 options**: The component works best with 3-8 options. Fewer than 3 or more than 8 may look cramped or sparse.
@@ -261,4 +247,4 @@ Found a bug? [Open an issue](https://github.com/reedblack/wagon-wheel-picker/iss
 
 ## 💡 Inspiration
 
-Created for [Taco Ninja](https://taconinja.app) - a playful recipe randomizer app. The wagon wheel pattern proved so fun and engaging, it deserved to be its own package!
+Created for [Taco Ninja](https://taco-ninja.vercel.app/) - a playful recipe randomizer app.

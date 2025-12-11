@@ -18,20 +18,48 @@ const meta = {
   argTypes: {
     options: {
       description: 'Array of options or object with option keys',
+      control: false, // Complex object, not practical to control
     },
     value: {
       description: 'Currently selected option key',
+      control: false, // Controlled by component state
     },
     onClick: {
       description: 'Callback when an option is clicked',
       action: 'clicked',
+      control: false,
     },
     size: {
       control: { type: 'range', min: 200, max: 600, step: 20 },
       description: 'Diameter of the wheel in pixels',
     },
+    innerPercent: {
+      control: { type: 'range', min: 0, max: 0.6, step: 0.05 },
+      description: 'Inner radius as percentage (0 = pie slices, 0.4 = default wagon wheel, 0.6 = thin ring)',
+    },
+    outerPercent: {
+      control: { type: 'range', min: 0.7, max: 1.0, step: 0.05 },
+      description: 'Outer radius as percentage (0.9 = default, 1.0 = full circle)',
+    },
+    centerText: {
+      description: 'Array of text lines to display in the center',
+      control: { type: 'object' },
+    },
+    fontFamily: {
+      description: 'Font family for center text',
+      control: { type: 'text' },
+    },
+    ImageComponent: {
+      description: 'Custom image component (e.g., Next.js Image)',
+      control: false,
+    },
     theme: {
       description: 'Theme object for customizing colors',
+      control: false, // Complex nested object, better handled in dedicated theme stories
+    },
+    fallbackImage: {
+      description: 'Fallback image path when option image is missing',
+      control: false,
     },
   },
 } satisfies Meta<typeof WagonWheelPicker>;
@@ -90,21 +118,21 @@ function InteractiveWagonWheel(props: Partial<WagonWheelPickerProps>) {
  */
 export const Default: Story = {
   render: () => <InteractiveWagonWheel options={basicOptions} />,
+  args: { options: basicOptions },
 };
 
 /**
  * Minimal example with just 3 options (minimum required).
  */
+const minimalOptions = [
+  { key: 'option1', label: 'Option 1', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1' },
+  { key: 'option2', label: 'Option 2', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2' },
+  { key: 'option3', label: 'Option 3', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=3' },
+];
+
 export const MinimalThreeOptions: Story = {
-  render: () => (
-    <InteractiveWagonWheel
-      options={[
-        { key: 'option1', label: 'Option 1', image: 'https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1' },
-        { key: 'option2', label: 'Option 2', image: 'https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2' },
-        { key: 'option3', label: 'Option 3', image: 'https://via.placeholder.com/150/45B7D1/FFFFFF?text=3' },
-      ]}
-    />
-  ),
+  render: () => <InteractiveWagonWheel options={minimalOptions} />,
+  args: { options: minimalOptions },
 };
 
 /**
@@ -113,6 +141,7 @@ export const MinimalThreeOptions: Story = {
  */
 export const MaximumEightOptions: Story = {
   render: () => <InteractiveWagonWheel options={manyOptions} />,
+  args: { options: manyOptions },
 };
 
 /**
@@ -121,6 +150,7 @@ export const MaximumEightOptions: Story = {
  */
 export const TextOnly: Story = {
   render: () => <InteractiveWagonWheel options={textOnlyOptions} />,
+  args: { options: textOnlyOptions },
 };
 
 /**
@@ -128,6 +158,7 @@ export const TextOnly: Story = {
  */
 export const LargeSize: Story = {
   render: () => <InteractiveWagonWheel options={basicOptions} size={500} />,
+  args: { options: basicOptions, size: 500 },
 };
 
 /**
@@ -135,28 +166,29 @@ export const LargeSize: Story = {
  */
 export const SmallSize: Story = {
   render: () => <InteractiveWagonWheel options={basicOptions} size={280} />,
+  args: { options: basicOptions, size: 280 },
 };
 
 /**
  * Colorful theme with vibrant colors.
  */
+const colorfulTheme = {
+  selectedBackground: '#FFE66D',
+  wedgeBackground: '#FFFFFF',
+  selectedBorder: '#FF6B6B',
+  wedgeBorder: '#4ECDC4',
+  centerBackground: '#F4F4F4',
+  centerText: '#2C3E50',
+  centerBorder: '#95E1D3',
+};
+
 export const ColorfulTheme: Story = {
   render: () => (
     <div style={{ background: '#f0f0f0', padding: '2rem', borderRadius: '8px' }}>
-      <InteractiveWagonWheel
-        options={basicOptions}
-        theme={{
-          selectedBackground: '#FFE66D',
-          wedgeBackground: '#FFFFFF',
-          selectedBorder: '#FF6B6B',
-          wedgeBorder: '#4ECDC4',
-          centerBackground: '#F4F4F4',
-          centerText: '#2C3E50',
-          centerBorder: '#95E1D3',
-        }}
-      />
+      <InteractiveWagonWheel options={basicOptions} theme={colorfulTheme} />
     </div>
   ),
+  args: { options: basicOptions, theme: colorfulTheme },
 };
 
 /**
@@ -178,11 +210,17 @@ export const PieSlicePicker: Story = {
  */
 export const PreSelected: Story = {
   render: () => <InteractiveWagonWheel options={basicOptions} value="chicken" />,
+  args: { options: basicOptions, value: 'chicken' },
 };
 
 /**
  * Playground for experimenting with all options.
  * Use the controls panel to customize the component.
+ * 
+ * **Recommended ranges:**
+ * - `innerPercent`: 0 (pie slices) to 0.5 (thick ring)
+ * - `outerPercent`: 0.8 to 1.0 (0.9 is default)
+ * - `size`: 200-600px (420px is default)
  */
 export const Playground: Story = {
   render: (args) => {
@@ -199,5 +237,8 @@ export const Playground: Story = {
   args: {
     options: basicOptions,
     size: 420,
+    innerPercent: 0.4,
+    outerPercent: 0.9,
+    centerText: ['SELECT', 'YOUR', 'OPTION'],
   },
 };
