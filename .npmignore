@@ -32,6 +32,9 @@ coverage/
 *.spec.ts
 *.spec.tsx
 
+# Source maps (exclude from published package to reduce size)
+*.map
+
 # Misc
 .env
 .env.local

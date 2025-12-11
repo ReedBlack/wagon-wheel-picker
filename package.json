@@ -1,6 +1,6 @@
 {
   "name": "react-wagon-wheel-picker",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A playful, interactive radial selection component for React - perfect for kids' apps, games, and fun interfaces",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -15,7 +15,7 @@
     "dev": "rollup -c -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "rm -rf dist && NODE_ENV=production npm run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -35,7 +35,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/reedblack/wagon-wheel-picker.git"
+    "url": "git+https://github.com/reedblack/wagon-wheel-picker.git"
   },
   "bugs": {
     "url": "https://github.com/reedblack/wagon-wheel-picker/issues"

@@ -63,7 +63,7 @@ export const WagonWheelPicker: React.FC<WagonWheelPickerProps> = ({
   ImageComponent,
   centerText,
   fontFamily,
-  fallbackImage = '/fallback.png',
+  fallbackImage: _fallbackImage = '/fallback.png',
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);

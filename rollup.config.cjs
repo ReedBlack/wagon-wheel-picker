@@ -7,6 +7,9 @@ const dts = require('rollup-plugin-dts');
 
 const packageJson = require('./package.json');
 
+// Only generate source maps in development (not for published package)
+const isProduction = process.env.NODE_ENV === 'production' || process.env.NPM_PUBLISH === 'true';
+
 module.exports = [
   {
     input: 'src/index.ts',
@@ -14,13 +17,13 @@ module.exports = [
       {
         file: packageJson.main,
         format: 'cjs',
-        sourcemap: true,
+        sourcemap: !isProduction,
         exports: 'named',
       },
       {
         file: packageJson.module,
         format: 'esm',
-        sourcemap: true,
+        sourcemap: !isProduction,
         exports: 'named',
       },
     ],
@@ -32,8 +35,9 @@ module.exports = [
       typescript.default({
         tsconfig: './tsconfig.json',
         declaration: true,
+        declarationMap: !isProduction,
         declarationDir: './dist',
-        exclude: ['**/__tests__/**', '**/*.test.ts', '**/*.test.tsx', 'examples/**'],
+        exclude: ['**/__tests__/**', '**/*.test.ts', '**/*.test.tsx', '**/*.stories.tsx', 'examples/**'],
       }),
       babel.default({
         exclude: 'node_modules/**',
